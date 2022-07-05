@@ -12,7 +12,7 @@ import javax.persistence.*;
 public class Area {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected Long Id;
+    protected Long id;
 
     @Column(length = 20, nullable = false)
     protected String name;
