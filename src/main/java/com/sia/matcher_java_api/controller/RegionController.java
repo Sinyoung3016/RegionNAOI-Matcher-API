@@ -24,4 +24,13 @@ public class RegionController {
         AreaReturnDto returnRegion = regionService.createNewRegion(new AreaSaveDto(request));
         return ResponseEntity.ok(new AreaSaveResponse(returnRegion));
     }
+
+    @GetMapping("/{region-id}/aois/intersects")
+    public ResponseEntity<AreaListReturnResponse> getAOIListInThisRegion(@PathVariable("region-id") String regionId_) {
+        Long regionId = Long.parseLong(regionId_);
+        if (!regionService.hasRegionId(regionId))
+            throw new IdNotFoundException();
+        List<AreaReturnDto> returnAOIList = regionService.readAllAOIInThisRegion(regionId);
+        return ResponseEntity.ok(new AreaListReturnResponse(returnAOIList));
+    }
 }

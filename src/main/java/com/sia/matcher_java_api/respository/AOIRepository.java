@@ -8,4 +8,6 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface AOIRepository extends JpaRepository<AOI, Long> {
+    @Query(value = "SELECT * from aoi, region where region.id = :id and ST_Covers(" + "region.area, aoi.area)", nativeQuery = true)
+    List<AOI> findAllAOIByRegionId(@Param("id") Long id);
 }

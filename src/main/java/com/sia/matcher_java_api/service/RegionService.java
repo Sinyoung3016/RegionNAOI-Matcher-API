@@ -21,5 +21,13 @@ public class RegionService {
     public AreaReturnDto createNewRegion(AreaSaveDto requestDto) {
         return new AreaReturnDto(regionRepository.save(new Region(requestDto)));
     }
+
+    public boolean hasRegionId(Long regionId) {
+        return regionRepository.existsById(regionId);
+    }
+
+    public List<AreaReturnDto> readAllAOIInThisRegion(Long regionId) {
+        List<AOI> aois = aoiRepository.findAllAOIByRegionId(regionId);
+        return aois.stream().map(AreaReturnDto::new).collect(Collectors.toList());
     }
 }
